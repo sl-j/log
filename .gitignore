@@ -1,0 +1,4 @@
+# Project exclude paths
+/log-admin/target/
+/log-blog/target/
+/log-framework/target/
