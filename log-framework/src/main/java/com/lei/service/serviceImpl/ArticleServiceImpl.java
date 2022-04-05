@@ -9,7 +9,9 @@ import com.lei.domain.entity.Article;
 import com.lei.domain.vo.hotArticleVo;
 import com.lei.mapper.ArticleMapper;
 import com.lei.service.IArticleService;
+import com.lei.utils.BeanCopyUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ import java.util.List;
 
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements IArticleService {
+
+
+//    @Autowired
+//    private BeanCopyUtils beanCopyUtils;
 
     /**
      * 查询热门文章，封装层responseResult返回
@@ -38,14 +44,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         List<Article> articles = page.getRecords();
 
-        List<hotArticleVo> articleVos = new ArrayList<>();
         //bean拷贝
-        for(Article article : articles){
-            hotArticleVo vo = new hotArticleVo();
-            BeanUtils.copyProperties(article,vo);
-            articleVos.add(vo);
-        }
+        List<hotArticleVo> vs = BeanCopyUtils.copyBeanList(articles, hotArticleVo.class);
 
-        return ResponseResult.okResult(articleVos);
+
+        return ResponseResult.okResult(vs);
     }
 }
