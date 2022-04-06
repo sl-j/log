@@ -2,11 +2,14 @@ package com.lei.domain.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -20,6 +23,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("sg_article")
+@Accessors(chain = true)
 public class Article {
     @TableId
     private Long id;
@@ -31,6 +35,10 @@ public class Article {
     private String summary;
     //所属分类id
     private Long categoryId;
+    //所属分类名称
+    //表示在数据库表中和不存在，只是在需要的时候存储在这个对象中
+    @TableField(exist = false)
+    private String categoryName;
     //缩略图
     private String thumbnail;
     //是否置顶（0否，1是）

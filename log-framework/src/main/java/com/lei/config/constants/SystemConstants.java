@@ -15,5 +15,14 @@ public class SystemConstants
      * 此分类是否被禁用
      */
     public static final String STATUS_NORMAL = "0";
+
+    /**
+     * 友链是否被审核通过 0表示通过 1表示未通过 2表示正在审核
+     */
+    public static final String LINK_STATUS_PASS = "0";
+
+    public static final String LINK_STATUS_NOPASS = "1";
+
+    public static final String LINK_STATUS_CHECK = "2";
     
 }
