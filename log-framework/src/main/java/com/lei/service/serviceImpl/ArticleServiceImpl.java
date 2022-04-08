@@ -62,6 +62,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return ResponseResult.okResult(vs);
     }
 
+    /**
+     * 分类中文章列表的查询
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public ResponseResult articleList(Long categoryId, Integer pageNum, Integer pageSize) {
         //查询条件
@@ -94,6 +101,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return ResponseResult.okResult(pageVo);
     }
 
+    /**
+     * 获取文章详情
+     * @param id
+     * @return
+     */
     @Override
     public ResponseResult getArticleDetail(Long id) {
         //根据id查询文章
