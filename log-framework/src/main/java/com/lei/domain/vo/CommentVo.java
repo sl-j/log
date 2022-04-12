@@ -12,9 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentVo {
-    @TableId
     private Long id;
-
     //文章id
     private Long articleId;
     //根评论id
@@ -23,18 +21,15 @@ public class CommentVo {
     private String content;
     //所回复的目标评论的userid
     private Long toCommentUserId;
-    //所回复的目标评论的username
     private String toCommentUserName;
     //回复目标评论id
     private Long toCommentId;
 
     private Long createBy;
 
-    private Date updateTime;
+    private Date createTime;
 
-    //评论人的用户名
-    private String userName;
+    private String username;
 
-    //子评论列表
     private List<CommentVo> children;
 }
