@@ -28,6 +28,6 @@ mybatis-plus:
 
 
 oss:
-  accessKey: 1ltxb75nnwzFNIok8MHVI2RcZzgUJDn3qxCSSzgM
-  secretKey: XN4T97vXwUAEUz7LXITWHf3wy6FBHF8pMMtYhwXj
-  bucket: sg-blog
+  accessKey: oXoJu-onK2c5szOHLkxWx3srl04oCaGGxOMLgPIE
+  secretKey: uAMkj7s-j-EzwvYU-ONQ84-UkpeCB9fEtYYhuk31
+  bucket: first-blog
