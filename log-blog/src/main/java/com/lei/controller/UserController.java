@@ -1,6 +1,7 @@
 package com.lei.controller;
 
 
+import com.lei.annotation.SystemLog;
 import com.lei.domain.ResponseResult;
 import com.lei.domain.entity.User;
 import com.lei.service.UserService;
@@ -32,6 +33,7 @@ public class UserController {
      * @return
      */
     @PutMapping("/userInfo")
+    @SystemLog(businessName = "更新用户信息")
     public ResponseResult updateUserInfo(@RequestBody User user){
         return userService.updateUserInfo(user);
     }
