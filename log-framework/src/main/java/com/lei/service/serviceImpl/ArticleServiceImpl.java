@@ -15,6 +15,7 @@ import com.lei.mapper.ArticleMapper;
 import com.lei.service.CategoryService;
 import com.lei.service.IArticleService;
 import com.lei.utils.BeanCopyUtils;
+import com.lei.utils.RedisCache;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private RedisCache redisCache;
 
     /**
      * 查询热门文章，封装层responseResult返回
@@ -76,7 +80,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //如果由categoryId,查询时就要和传入的id相同
         queryWrapper.eq(Objects.nonNull(categoryId) && categoryId > 0,Article::getCategoryId,categoryId);
         //必须是正式发布的文章
-        queryWrapper.eq(Article::getStatus,SystemConstants.ARTICLE_STATUS_NORMAL);
+        queryWrapper.eq(Article::getStatus,SystemConstants.LINK_STATUS_PASS);
         //对isTop进行降序
         queryWrapper.orderByDesc(Article::getIsTop);
         //分页查询
@@ -110,6 +114,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleDetail(Long id) {
         //根据id查询文章
         Article article = getById(id);
+        //从redis中获取浏览量
+        Integer viewCount = redisCache.getCacheMapValue(SystemConstants.KEY , id.toString());
+        article.setViewCount(viewCount.longValue());
         //转换成vo
         ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
         //根据分类id查询分类名
@@ -121,5 +128,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         //封装响应返回
         return ResponseResult.okResult(articleDetailVo);
+    }
+
+    /**
+     * 更新浏览量
+     * @param id
+     * @return
+     */
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        //更新redis中对应的浏览量
+        redisCache.incrementCacheMapValue(SystemConstants.KEY,id.toString(),1);
+        return ResponseResult.okResult();
     }
 }

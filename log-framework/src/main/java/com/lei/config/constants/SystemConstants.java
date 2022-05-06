@@ -21,6 +21,12 @@ public class SystemConstants
      */
     public static final String LINK_STATUS_PASS = "0";
 
+
+    /**
+     * 缓存中浏览量
+     */
+    public static final String KEY = "article:viewCount";
+
     public static final String LINK_STATUS_NOPASS = "1";
 
     public static final String LINK_STATUS_CHECK = "2";

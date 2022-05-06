@@ -226,6 +226,13 @@ public class RedisCache
     }
 
     /**
+     * 更新缓存中map的value值
+     */
+    public void incrementCacheMapValue(String key,String hKey,int v){
+        redisTemplate.opsForHash().increment(key,hKey,v);
+    }
+
+    /**
      * 获得缓存的基本对象列表
      *
      * @param pattern 字符串前缀
